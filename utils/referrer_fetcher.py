@@ -23,7 +23,7 @@ class ReferrerInfoFetcher:
                        
                    referrer_info["referrer_utm"]["source"] , referrer_info["referrer_utm"]["medium"] ,referrer_info["referrer_utm"]["content"], referrer_info["referrer_utm"]["campaign"] = extract_utms(subscriber_fields)
                 
-                return referrer_info
+                return subscriber_id, referrer_info
             
         except Exception as e:      
             self.console.print(f"[red]Error fetching {subscriber_id}: {e}")
@@ -44,7 +44,7 @@ class ReferrerInfoFetcher:
         async with aiohttp.ClientSession() as session:
             tasks = [fetch_with_semaphore(sid) for sid in subscriber_ids]
         
-            for completed_task in asyncio.as_completed(tasks):
+            for completed_task in asyncio.as_completed(tasks): 
                 sid, referrer_info = await completed_task
                 results[sid] = referrer_info
         
