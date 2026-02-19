@@ -2,10 +2,11 @@ import asyncio, aiohttp
 import os
 from dotenv import load_dotenv
 from config.settings import base_url
+import requests
 
 load_dotenv()
 
-async def get_subscribers_fields(subscriber_id):
+def get_subscribers_fields(subscriber_id):
     """
     ARGS: subscriber_id
     Returns All tags for a subscriber. Pretty simple, huh?
@@ -16,11 +17,10 @@ async def get_subscribers_fields(subscriber_id):
             'X-Kit-Api-Key': os.getenv("KIT_V4_API_KEY")
     }
 
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url = url, headers = headers) as response:
-            return await response.json()
+    response = requests.get(url = url, headers = headers)
+    return  response.json()
     
-async def extract_utms(subscriber_data):
+def extract_utms(subscriber_data):
     """
     ARGS: A JSON of subscribers data. Usually: {subscriber: {id: ''...., fields: {}}}
     The goal is to extract the utm values from those fields. 
@@ -35,5 +35,5 @@ async def extract_utms(subscriber_data):
     
 
 if __name__ == "__main__":
-    data = asyncio.run(get_subscribers_fields(3924805912))
-    print(asyncio.run(extract_utms(data)))
+    data = get_subscribers_fields(3924805912)
+    print(extract_utms(data))
