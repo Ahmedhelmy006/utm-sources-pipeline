@@ -61,7 +61,7 @@ class LocationFetcher:
             return city, state
         return None, None
     
-    async def fetch_all_locations(self, subscriber_ids, max_concurrent=5):
+    async def fetch_all_locations(self, subscriber_ids, max_concurrent=3):
         """
         Fetch location data for multiple subscribers concurrently
         
