@@ -1,2 +1,23 @@
 base_url = "https://api.kit.com/v4"
 facebook_paid_ads = [120238339349620295, 120240689174560295, 120241477054870295 ,"fb"]
+facebook_ads_campaigns = ['12 Feb | Testing | ICP Callout', 
+                          '12 Feb - ICP Callout - Controller 2',
+                          'Sub | Live Webinar | Testing',
+                          '08 Jan | Testing | AI Native',
+                          '08 | Nicolas Info | Testing',
+                          '12 Feb | Testing | ICP Callout',
+                          '12 Feb | Testing | Prompt Video',
+                          '10 Feb | Testing | Organic Video',
+                          '08 | Nicolas Info | Testing',
+                          '10 Feb | Testing | Organic Video',
+                          '17 Jan | Testing | AI Native Repechage',
+                          'Bid Cap Graveyard | Static',
+                          '08 Jan | Testing | AI Native',
+                          '17 Feb | Testing | Nicolas On Brand',
+                          'Bid Cap Graveyard | Static',
+                          '08 | Nicolas Info | Testing',
+                          'Bid Cap Graveyard | Static',
+                          'ad',
+                          'paid',
+                          '08',
+                          '17'] #This is a list that concludes some UTMs that will be converted into a single campaign. 

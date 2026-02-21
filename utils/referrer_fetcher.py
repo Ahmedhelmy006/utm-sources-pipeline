@@ -18,6 +18,8 @@ class ReferrerInfoFetcher:
                     return subscriber_id, None
 
                 referrer_info = await response.json()
+                if referrer_info["origin"]["name"] == None:
+                    referrer_info["origin"]["name"] = "Weekly Webinar Registration Form"
                 subscriber_fields = get_subscribers_fields(subscriber_id)
                 if referrer_info["referrer_utm"]["source"] == "" :
                        
@@ -55,6 +57,6 @@ if __name__ == "__main__":
     referrer = ReferrerInfoFetcher(headers=headers)
     async def main():
         async with aiohttp.ClientSession() as session:
-            result = await referrer.fetch_referrer_info(session, 3933021561)
+            result = await referrer.fetch_referrer_info(session, 3951990735)
             print(result)
     asyncio.run(main())

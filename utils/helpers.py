@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from config.settings import base_url
 import requests
 import re
+from config.settings import facebook_ads_campaigns
 
 load_dotenv()
 
@@ -41,11 +42,14 @@ def extract_utms(subscriber_data):
     if re.search(pattern, campaign):
         campaign = "facebook-ads"
     
+    elif medium in facebook_ads_campaigns:
+        medium = 'paid-ads'
+    
     return source, medium, campaign, content
     
 def unify_sources():
     pass
 
 if __name__ == "__main__":
-    data = get_subscribers_fields(3938647549)
+    data = get_subscribers_fields(3949825539)
     print(extract_utms(data))
