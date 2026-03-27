@@ -1,6 +1,7 @@
 import pandas as pd
 from googleapiclient.discovery import build
 from google.oauth2.service_account import Credentials
+from utils.supabase_submitter import SupabaseSubmitter
 
 class SpreadsheetSubmitter:
     def __init__(self, credentials_path, spreadsheet_id, tab_name):
@@ -25,6 +26,8 @@ class SpreadsheetSubmitter:
         data_frame = data_frame[column_order]
         data_frame = data_frame.fillna("N/A")  # Replace None values with 'N/A'
 
+        # Submit to Supabase
+        SupabaseSubmitter(data_frame).submit_df()
 
         service = build('sheets', 'v4', credentials=self.credentials)
         sheet = service.spreadsheets()
@@ -38,7 +41,6 @@ class SpreadsheetSubmitter:
         # Prepare data for appending
         data_to_write = [data_frame.columns.tolist()] if start_row == 1 else []  # Add header if sheet is empty
         data_to_write += data_frame.values.tolist()
-
 
         range_to_write = f"{self.tab_name}!A{start_row}"
         print(f"Writing to range: {range_to_write}")

@@ -20,4 +20,6 @@ facebook_ads_campaigns = ['12 Feb | Testing | ICP Callout',
                           'ad',
                           'paid',
                           '08',
-                          '17'] #This is a list that concludes some UTMs that will be converted into a single campaign. 
+                          '17',
+                          '08 Jan | Testing | AI Native',
+                          '08 | Nicolas Info | Testing'] #This is a list that concludes some UTMs that will be converted into a single campaign. 
