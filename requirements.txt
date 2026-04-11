@@ -30,4 +30,4 @@ google-auth
 google-auth-httplib2
 google-auth-oauthlib
 supabase==2.10.0
-websockets==16.0
+websockets>=11,<16
