@@ -2,7 +2,7 @@ from supabase import create_client
 from dotenv import load_dotenv
 import os
 import time
-import requests
+import requests, pandas as pd
 
 load_dotenv()
 
@@ -16,6 +16,18 @@ class SupabaseSubmitter:
         supabase_api_url = os.getenv("SUPABASE_PROJECT_URL")
         supabase_api_key = os.getenv("SUPABASE_PROJECT_KEY")
         return create_client(supabase_api_url, supabase_api_key)
+    
+    def _prepare_data(self):
+        """
+        Adjusts the data specifically for Supabase's requirements.
+        - Converts Excel serial dates back to YYYY-MM-DD
+        """
+        if 'subscriber_created_at' in self.df.columns:
+            self.df['subscriber_created_at'] = pd.to_datetime(
+                self.df['subscriber_created_at'] - 2, 
+                unit='D', 
+                origin='1900-01-01'
+            ).dt.strftime('%Y-%m-%d')
 
     def trigger_webhook(self):
         print("Sleeping 120 seconds before triggering webhook...")
@@ -36,6 +48,8 @@ class SupabaseSubmitter:
             print(f"Failed to trigger webhook. Error: {e}")
 
     def submit_df(self):
+
+        self._prepare_data()
         client = self.establish_connection()
         try:
             records = self.df.to_dict(orient="records")

@@ -208,3 +208,4 @@ __marimo__/
 
 headers.py
 *.json
+test_supabase.py
