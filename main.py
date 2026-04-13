@@ -5,7 +5,7 @@ from rich.console import Console
 from dotenv import load_dotenv
 from rich.progress import Progress, SpinnerColumn, TextColumn, TimeElapsedColumn
 from concurrent.futures import ThreadPoolExecutor
-import time
+import time, argparse
 
 
 from utils.spreadsheet_submitter import SpreadsheetSubmitter
@@ -163,4 +163,15 @@ async def main(start_date_str=None, end_date_str=None):
     await runner.run(start_date_str, end_date_str)
 
 if __name__ == "__main__":
-    asyncio.run(main())
+# 1. Initialize the Argument Parser
+    parser = argparse.ArgumentParser(description="Process UTM sources pipeline for specific date ranges.")
+    
+    # 2. Add the optional arguments
+    parser.add_argument("--start_date", type=str, help="Start date in dd/mm/yyyy format", default=None)
+    parser.add_argument("--end_date", type=str, help="End date in dd/mm/yyyy format", default=None)
+    
+    # 3. Parse the arguments from the command line
+    args = parser.parse_args()
+    
+    # 4. Run the async main with the provided args
+    asyncio.run(main(start_date_str=args.start_date, end_date_str=args.end_date))
